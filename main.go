@@ -4,14 +4,13 @@ import (
 	"fmt"
 	"net/http"
 	"obsidianshare/src"
+	"os"
 	"time"
 
 	"github.com/go-chi/chi/v5"
 	"github.com/go-chi/chi/v5/middleware"
 	"github.com/joho/godotenv"
 )
-
-const port = 8080
 
 func main() {
 	// Load from dotenv for dev
@@ -57,7 +56,10 @@ func main() {
 	})
 	r.Post("/admin/pull", src.PullFiles)
 
+	// Get the port from the environment variables
+	port := os.Getenv("PORT")
+
 	// Start server
-	fmt.Printf("Server is running on port %d\nGo to http://localhost:%d\n", port, port)
-	http.ListenAndServe(fmt.Sprintf(":%d", port), r)
+	fmt.Printf("Server is running on port %s\nGo to http://localhost:%s\n", port, port)
+	http.ListenAndServe(fmt.Sprintf(":%s", port), r)
 }

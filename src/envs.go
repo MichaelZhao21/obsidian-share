@@ -9,6 +9,7 @@ var reqEnvs = []string{
 	"SSH_PRIVATE_KEY",
 	"REPO_URL",
 	"MONGODB_URI",
+	"PORT",
 }
 
 func CheckEnvs() {
