@@ -18,13 +18,13 @@ import (
 // Requires SSH_PRIVATE_KEY environment variable to be set.
 func CloneOrPullRepo(repoURL, localPath string) error {
 	// Get SSH key from environment variable
-	sshKey := os.Getenv("SSH_PRIVATE_KEY")
-	if sshKey == "" {
+	sshKeyFile := os.Getenv("SSH_PRIVATE_KEY")
+	if sshKeyFile == "" {
 		return errors.New("SSH_PRIVATE_KEY environment variable is not set")
 	}
 
-	// Create SSH auth from private key
-	publicKeys, err := ssh.NewPublicKeys("git", []byte(sshKey), "")
+	// Read the SSH key from a file
+	publicKeys, err := ssh.NewPublicKeysFromFile("git", sshKeyFile, "")
 	if err != nil {
 		return err
 	}
