@@ -241,6 +241,9 @@ async function deleteItem(i) {
     if (showMessageAndReturnError(res, "Data deleted", "Error deleting data")) {
         return;
     }
+
+    // Reload the page on delete
+    window.location.reload();
 }
 
 function add() {
