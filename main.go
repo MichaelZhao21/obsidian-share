@@ -51,10 +51,15 @@ func main() {
 	r.Get("/{id}", src.GetFile)
 
 	// Admin routes
-	r.Route("/admin", func(r chi.Router) {
-
+	// Serve admin.html
+	r.Get("/admin", func(w http.ResponseWriter, r *http.Request) {
+		http.ServeFile(w, r, "./public/admin.html")
 	})
+	r.Post("/admin/login", src.Login)
 	r.Post("/admin/pull", src.PullFiles)
+	r.Get("/admin/list", src.ListFiles)
+	r.Post("/admin/data", src.UpdateData)
+	r.Delete("/admin/data", src.DeleteData)
 
 	// Get the port from the environment variables
 	port := os.Getenv("PORT")

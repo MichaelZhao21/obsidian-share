@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Files Admin</title>
+        <link rel="stylesheet" href="/public/admin.css" />
+    </head>
+    <body>
+        <h1>Dashboard</h1>
+
+        <!-- Login Form -->
+        <div id="loginContainer" class="container">
+            <h2>Login</h2>
+            <form id="loginForm" class="login-form">
+                <div class="form-group">
+                    <label for="password">Password:</label>
+                    <input
+                        type="password"
+                        id="password"
+                        name="password"
+                        required
+                    />
+                </div>
+                <button type="submit">Login</button>
+            </form>
+            <div id="loginError" class="error-message hidden"></div>
+            <div id="loginSuccess" class="success-message hidden"></div>
+            <div id="loginLoading" class="loading hidden">Processing...</div>
+        </div>
+
+        <!-- Data Container (shows when logged in) -->
+        <div id="dataContainer" class="container hidden">
+            <h2>File Mappings</h2>
+            <div id="userData" class="data-container">
+                <div id="dataLoading" class="loading">Loading your data...</div>
+            </div>
+            <p id="data-message"></p>
+            <button id="logoutButton">Logout</button>
+        </div>
+
+        <script src="/public/admin.js"></script>
+    </body>
+</html>
