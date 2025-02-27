@@ -76,7 +76,7 @@ func ConvAllToHtml(files []FileLink, outPath string) error {
 	}
 
 	for _, file := range files {
-		err := ConvToHtml(filepath.Join("./files/raw", file.Filename), outPath)
+		err := ConvToHtml(file.Slug, filepath.Join("./files/raw", file.Filename), outPath)
 		if err != nil {
 			return err
 		}
@@ -85,7 +85,7 @@ func ConvAllToHtml(files []FileLink, outPath string) error {
 }
 
 // Convert a single file to HTML
-func ConvToHtml(fileName string, outPath string) error {
+func ConvToHtml(slug string, fileName string, outPath string) error {
 	// Get the file info
 	info, err := os.Stat(fileName + ".md")
 	if err != nil {
@@ -131,9 +131,10 @@ func ConvToHtml(fileName string, outPath string) error {
 	}
 
 	// Replace the template's body with the HTML output
-	replaced := strings.Replace(string(template), "{CONTENT}", string(htmlOutput), 1)
-	replaced = strings.Replace(replaced, "{TITLE}", filepath.Base(fileName), 1)
-	replaced = strings.Replace(replaced, "{TITLE_DISPLAY}", filepath.Base(fileName), 1)
+	replaced := strings.Replace(string(template), "{CONTENT}", string(htmlOutput), -1)
+	replaced = strings.Replace(replaced, "{TITLE}", filepath.Base(fileName), -1)
+	replaced = strings.Replace(replaced, "{TITLE_DISPLAY}", filepath.Base(fileName), -1)
+	replaced = strings.Replace(replaced, "{SLUG}", slug, -1)
 
 	// Write the HTML file
 	return os.WriteFile(htmlPath, []byte(replaced), 0644)
