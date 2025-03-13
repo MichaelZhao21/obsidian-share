@@ -2,6 +2,7 @@ package src
 
 import (
 	"errors"
+	"log"
 	"os"
 	"path/filepath"
 	"regexp"
@@ -97,9 +98,10 @@ func ConvToHtml(slug string, fileName string, outPath string) error {
 
 	// Check if HTML file exists and is older than the markdown file
 	htmlInfo, err := os.Stat(htmlPath)
-	if err == nil && info.ModTime().After(htmlInfo.ModTime()) {
+	if err == nil && info.ModTime().Before(htmlInfo.ModTime()) {
 		return nil
 	}
+	log.Println("Updating", fileName)
 
 	// Read in the markdown file
 	md, err := os.ReadFile(fileName + ".md")
